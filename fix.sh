@@ -37,7 +37,7 @@ export CATALINA_HOME=/opt/apache/tomcat/7.0.62
 #fixing iptables ports
 
 iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 2222 -j ACCEPT
+
 iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 80 -j ACCEPT
 
 chattr -i /etc/sysconfig/iptables
