@@ -1,5 +1,20 @@
-## Trouble Report
+## Trouble Table
+|    | Issue                | How to find       | Time to find       | How to fix        | Time to fix     |
+|---:|:--------------------:|:-----------------:|:------------------:|:-----------------:|:----------------| 
+|   1| Vagrant up failure   | check Vagrantfile | 2 min              | vagrant box add mntlab20160711.box| 5 min |          
+|   2| Response code 302    | curl -IL 192.168.56.10|    5 min       | cat /etc/httpd/conf/httpd.conf, sudo vi /etc/httpd/conf/httpd.conf,  Block virtual host section | 10 min| 
+|   3|   Respone code 503 | vagrant ssh curl -IL localhost, netstat –natupl|     10 min          |  sudo service tomcat start \ grep tomcat   |  20 min | 
+| 4  |Tomcat not running|cat /etc/init.d/tomcat ;sudo vi /etc/init.d/tomcat #comment > /dev/null ; cd /opt/apache/tomcat//current/bin/ ; sudo ./startup.sh ; cat ../logs/catalina.out | 1 hour| java -v ; sudo alternatives --config java ; alternatives --set java /opt/oracle/java/x64//jdk1.7.0_79/bin/java ; sudo ./startup.sh | 1 hour
+| 5  |503 Response code, mod_jk doesn't work| cd /var/log/ ; sudo cat httpd/error_log ; sudo cat httpd/modjk.log ; sudo cat /etc/httpd/conf.d/vhost.conf ; sudo cat /etc/httpd/conf.d/workers.properties| 30 min | sudo vi /etc/httpd/conf.d/vhost.conf ; sudo vi /etc/httpd/conf.d/workers.properties #correct files| 1 hour
+| 6  |Tomcat doesn't work after reboot| curl localhost ; netstat –natupl | 5 min | su ; su tomcat ; /opt/apache/tomcat/7.0.62/bin ; ./startup.sh | 1 hour|
+| 7  |Cannot find /tmp/bin/setclasspath.sh| find / -name setclasspath.sh ; env ; cat ~/.bash_profile ; cat ~/.bashrc | 30 min | vi ~/.bashrc #delete incorrect lines ; ./startup.sh ; service tomcat start ; chown -R tomcat:tomcat /opt/apache/tomcat/7.0.62/logs/ ; service tomcat start ; curl -IL localhost ; chkconfig --list ; sudo chkconfig tomcat on ; sudo reboot ; curl -IL localhost | 3 hour|
+| 8  | Don't have any rules in iptables| sudo iptables -L -n| 5 min| sudo iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 22 -j ACCEPT ; sudo iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 80 -j ACCEPT ; sudo service iptables save ; sudo chattr -i /etc/sysconfig/iptables ; sudo service iptables save ; sudo chattr +i /etc/sysconfig/iptables ; sudo service iptables restart | 2 hour|
+  
+  
+  
 
+
+## Trouble Report
 
 ### 1. What java version is installed?
 --------------------------------------
@@ -118,15 +133,5 @@ Htttp.conf, vhost.conf, workers.properties, server.xml, tomcat-users.xml.
 
 
 
-## Trouble Report
-|    | Issue                | How to find       | Time to find       | How to fix        | Time to fix     |
-|---:|:--------------------:|:-----------------:|:------------------:|:-----------------:|:----------------| 
-|   1| Vagrant up failure   | check Vagrantfile | 2 min              | vagrant box add mntlab20160711.box| 5 min |          
-|   2| Response code 302    | curl -IL 192.168.56.10|    5 min       | cat /etc/httpd/conf/httpd.conf, sudo vi /etc/httpd/conf/httpd.conf,  Block virtual host section | 10 min| 
-|   3|   Respone code 503 | vagrant ssh curl -IL localhost, netstat –natupl|     10 min          |  sudo service tomcat start \ grep tomcat   |  20 min | 
-| 4  |Tomcat not running|cat /etc/init.d/tomcat ;sudo vi /etc/init.d/tomcat #comment > /dev/null ; cd /opt/apache/tomcat//current/bin/ ; sudo ./startup.sh ; cat ../logs/catalina.out | 1 hour| java -v ; sudo alternatives --config java ; alternatives --set java /opt/oracle/java/x64//jdk1.7.0_79/bin/java ; sudo ./startup.sh | 1 hour
-| 5  |503 Response code, mod_jk doesn't work| cd /var/log/ ; sudo cat httpd/error_log ; sudo cat httpd/modjk.log ; sudo cat /etc/httpd/conf.d/vhost.conf ; sudo cat /etc/httpd/conf.d/workers.properties| 30 min | sudo vi /etc/httpd/conf.d/vhost.conf ; sudo vi /etc/httpd/conf.d/workers.properties #correct files| 1 hour
-| 6  |Tomcat doesn't work after reboot| curl localhost ; netstat –natupl | 5 min | su ; su tomcat ; /opt/apache/tomcat/7.0.62/bin ; ./startup.sh | 1 hour|
-| 7  |Cannot find /tmp/bin/setclasspath.sh| find / -name setclasspath.sh ; env ; cat ~/.bash_profile ; cat ~/.bashrc | 30 min | vi ~/.bashrc #delete incorrect lines ; ./startup.sh ; service tomcat start ; chown -R tomcat:tomcat /opt/apache/tomcat/7.0.62/logs/ ; service tomcat start ; curl -IL localhost ; chkconfig --list ; sudo chkconfig tomcat on ; sudo reboot ; curl -IL localhost | 3 hour|
-| 8  | Don't have any rules in iptables| sudo iptables -L -n| 5 min| sudo iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 22 -j ACCEPT ; sudo iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 80 -j ACCEPT ; sudo service iptables save ; sudo chattr -i /etc/sysconfig/iptables ; sudo service iptables save ; sudo chattr +i /etc/sysconfig/iptables ; sudo service iptables restart | 2 hour|
-  
+
+
