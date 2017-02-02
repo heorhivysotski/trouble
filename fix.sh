@@ -45,7 +45,6 @@ service iptables save
 chattr +i /etc/sysconfig/iptables
 service iptables restart
 
-
-
-
+#creating symlink for logs of tomcat
+ln -s /opt/apache/tomcat/7.0.62/logs /var/log/tomcat
 
