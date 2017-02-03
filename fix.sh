@@ -1,7 +1,6 @@
 #fixing httpd 
 #changing error configs 
 
-   cd /
    /bin/cp /vagrant/httpd.conf /etc/httpd/conf/
    /bin/cp /vagrant/vhost.conf /etc/httpd/conf.d/
    /bin/cp /vagrant/workers.properties /etc/httpd/conf.d/
