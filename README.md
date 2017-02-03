@@ -11,9 +11,7 @@
 | 8  | Don't have any rules in iptables| sudo iptables -L -n| 5 min| sudo iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 22 -j ACCEPT ; <br> sudo iptables -A INPUT -p tcp -s 192.168.56.10 -m tcp --dport 80 -j ACCEPT ;<br>  sudo service iptables save ; <br> sudo chattr -i /etc/sysconfig/iptables ; <br> sudo service iptables save ;<br>  sudo chattr +i /etc/sysconfig/iptables ; <br> sudo service iptables restart | 2 hour|
   
   
-<br>  
-<br>
-<br>
+
 ## Trouble Report
 
 ### 1. What java version is installed?
